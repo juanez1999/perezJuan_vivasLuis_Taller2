@@ -18,7 +18,6 @@ public class Jerry extends Personaje {
 		maxVel = 6;
 		maxFue = 0.5f;
 		vivo = true;
-//		vida = 5;
 		vida = 2;
 		arco = 0;
 		contadorVida = 1;	
@@ -38,9 +37,9 @@ public class Jerry extends Personaje {
 //		app.rect(pos.x-35, pos.y-60, vida, 10);
 		app.image(jerry, pos.x, pos.y);
 		app.stroke(255);
-		app.fill(255);
-		app.textSize(30);
-		app.text(contadorVida, pos.x, pos.y);
+//		app.fill(255);
+//		app.textSize(30);
+//		app.text(contadorVida, pos.x, pos.y);
 		
 		app.noFill();
 		app.stroke(0,255,0);

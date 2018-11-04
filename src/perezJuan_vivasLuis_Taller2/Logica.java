@@ -14,7 +14,7 @@ public class Logica extends Thread {
 	private boolean vivo;
 	private int contadorAgregar;
 	private int m;
-
+	private int tiempo;
 	private int contCreate;
 
 	public Logica(PApplet app) {
@@ -31,7 +31,7 @@ public class Logica extends Thread {
 		contadorAgregar = 0;
 		m = app.millis();
 //		crearToms();
-
+		tiempo=0;
 		vivo = true;
 		start();
 	}
@@ -44,21 +44,16 @@ public class Logica extends Thread {
 		app.ellipse(app.mouseX, app.mouseY, 15, 15);
 		app.noStroke();
 		jerry.pintar();
-//		tom.pintar();
-
 		for (int i = 0; i < toms.size(); i++) {
 			toms.get(i).pintar();
 		}
+		
+		tiempo++;
+		app.textSize(50);
+		app.fill(255);
+		app.text(tiempo, 1000, 200);
 
 	}
-//	public void crearToms() {	
-//		
-//		for (int i = 0; i < 15; i++) {
-//			Tom t = new Tom(this, app);
-//			t.start();
-//			toms.add(t);	
-//	}
-//	}
 
 	public void crearToms() {
 		contCreate++;
