@@ -4,14 +4,56 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class Comida {
-	private int posX;
-	private int posY;
+	public int posX;
+	public int posY;
 	private int tipoComida;
 	private PApplet app;
-	private boolean comido;
+	public boolean comido;
 	private PImage tipoImagen;
 	
 	public Comida(PApplet app) {
 		this.app=app;
+		posX = (int) app.random(0, app.width);
+		posY = (int) app.random(0, app.height);
+		comido  = false;
+	}
+	
+	public int getPosX() {
+		return posX;
+	}
+
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
+	public void setPosY(int posY) {
+		this.posY = posY;
+	}
+
+	public void pintar() {
+		app.noStroke();
+		app.fill(app.random(0, 255), app.random(0, 255), app.random(0, 255));
+		app.ellipse(posX, posY, 20, 20);
+	}
+
+	public boolean isComido() {
+		return comido;
+	}
+
+	public void setComido(boolean comido) {
+		this.comido = comido;
+	}
+
+	public int getTipoComida() {
+		return tipoComida;
+	}
+
+	public void setTipoComida(int tipoComida) {
+		this.tipoComida = tipoComida;
 	}
 }
+

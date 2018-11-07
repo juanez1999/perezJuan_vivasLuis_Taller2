@@ -1,5 +1,7 @@
 package perezJuan_vivasLuis_Taller2;
 
+import java.util.ArrayList;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
@@ -7,7 +9,9 @@ import processing.core.PVector;
 public class Jerry extends Personaje {
 
 	private PImage jerry;
+	private Comida c;
 	private float arco;
+	private ArrayList<Comida> comidas;
 
 	public Jerry(Logica log, PApplet app) {
 		super(log, app);
@@ -21,9 +25,7 @@ public class Jerry extends Personaje {
 		vida = 2;
 		arco = 0;
 		contadorVida = 1;	
-		arco+=36;
-		arco+=36;
-		arco+=36;
+		comidas = log.getComidas();
 
 	}
 
@@ -89,12 +91,20 @@ public class Jerry extends Personaje {
 
 	@Override
 	public void matar() {
-		// TODO Auto-generated method stub
-
+		
 	}
-
+	
 	public PVector getPos() {
 		return pos;
 	}
 
+	public float getArco() {
+		return arco;
+	}
+
+	public void setArco(float arco) {
+		this.arco = arco;
+	}
+
+	
 }
