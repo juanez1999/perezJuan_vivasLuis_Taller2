@@ -25,7 +25,7 @@ public class Tom extends Personaje {
 		maxVel = 3;
 		maxFue= 0.5f;
 		arco = 0;
-		contadorVida = 1;
+		contadorVida = 0;
 		vivo = true;
 		random = (int) app.random(3);
 		if(random == 1) {
@@ -72,8 +72,8 @@ public class Tom extends Personaje {
 			Comida comida = comidas.get(i);
 			if(app.dist(c.posX, c.posY, pos.x, pos.y) > app.dist(comida.posX, comida.posY, pos.x, pos.y)) {
 				c = comida;
+				}
 			}
-		}
 		if(c != null) {
 			PVector obj = new PVector(c.posX, c.posY);
 			perseguir(obj);
@@ -90,9 +90,9 @@ public class Tom extends Personaje {
 			log.eliminarComidaTom(c);
 			if(arco < 360) {
 				arco+=36;
-				contadorVida += 1;
+
 			}
-			System.out.println("c lo comio tom");
+			//System.out.println("c lo comio tom");
 		} else {
 			c.setComido(false);
 		}
@@ -107,8 +107,11 @@ public class Tom extends Personaje {
 		while (vivo) {
 			try {
 				actua();
-			//	perseguir(log.getJerry().getPos());
-				perseguirComida();
+				if(log.getJerry().getArco() < arco) {
+					perseguir(log.getJerry().getPos());
+				} else {
+					perseguirComida();
+				}
 				comido();
 			sleep(16);
 			} catch (Exception e) {

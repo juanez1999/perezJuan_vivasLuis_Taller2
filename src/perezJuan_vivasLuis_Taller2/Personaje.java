@@ -12,7 +12,7 @@ public abstract class Personaje extends Thread {
 	protected PVector vel, acel;
 	protected float maxVel, maxFue, r;
 	protected int vida;
-	protected int contadorVida;
+
 	
 	public Personaje(Logica log, PApplet app) {
 		this.log=log;

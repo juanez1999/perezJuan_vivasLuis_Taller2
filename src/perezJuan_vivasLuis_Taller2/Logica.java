@@ -11,7 +11,6 @@ public class Logica extends Thread {
 	private Jerry jerry;
 	private ArrayList<Tom> toms;
 	private ArrayList<Comida> comidas;
-//	private Tom tom;
 	private boolean vivo;
 	private int contadorAgregar;
 	private int m;
@@ -20,6 +19,7 @@ public class Logica extends Thread {
 	private int contComida;
 	public int posX;
 	public int posY;
+	private int time;
 	
 
 	public Logica(PApplet app) {
@@ -33,17 +33,16 @@ public class Logica extends Thread {
 		jerry = new Jerry(this, app);
 		toms = new ArrayList<>();
 		comidas = new ArrayList<Comida>();
-//		tom= new Tom(this, app);
 		jerry.start();
-//		tom.start();
 		contadorAgregar = 0;
 		m = app.millis();
-//		crearToms();
 		tiempo=0;
 		vivo = true;
 		posX = (int) app.random(0, app.width);
 		posY = (int) app.random(0, app.height);
 		start();
+		time = app.millis()+90000; 
+		
 	}
 
 	public void pintar() {
@@ -58,10 +57,7 @@ public class Logica extends Thread {
 			toms.get(i).pintar();
 		}
 		
-		tiempo++;
-		app.textSize(50);
-		app.fill(255);
-		app.text(tiempo, 1000, 200);
+		time();
 		
 		for (int i = 0; i < comidas.size(); i++) {
 			comidas.get(i).pintar();
@@ -72,7 +68,7 @@ public class Logica extends Thread {
 	public void crearToms() {
 		contCreate++;
 		if (contCreate > 180) {
-			System.out.println("se creo");
+			//System.out.println("se creo");
 			Tom t = new Tom(this, app);
 			t.start();
 			toms.add(t);
@@ -106,7 +102,7 @@ public class Logica extends Thread {
 			crearToms();
 			crearComida();
 			comido();
-			
+	
 			try {
 				sleep(16);
 			} catch (Exception e) {
@@ -124,7 +120,6 @@ public class Logica extends Thread {
 			comidas.remove(c);
 			if(jerry.getArco() < 360) {
 				jerry.setArco(jerry.getArco()+36);
-				jerry.contadorVida += 1;
 			}
 			System.out.println("c lo comio");
 		} else {
@@ -133,7 +128,14 @@ public class Logica extends Thread {
 	}
 	}
 	
-	
+	public void time() {
+		int seg= (time-app.millis())/1000;
+		int min = seg/60;
+		seg -= min*60;
+		app.fill(0);
+		app.textSize(50);
+		app.text(min+":"+seg, app.width/2+460, 100);
+	}
 	
 	
 	

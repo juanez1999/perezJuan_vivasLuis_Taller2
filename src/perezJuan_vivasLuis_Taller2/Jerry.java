@@ -24,7 +24,6 @@ public class Jerry extends Personaje {
 		vivo = true;
 		vida = 2;
 		arco = 0;
-		contadorVida = 1;	
 		comidas = log.getComidas();
 
 	}
