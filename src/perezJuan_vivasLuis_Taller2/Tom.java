@@ -35,9 +35,6 @@ public class Tom extends Personaje {
 		} else {
 			pos = new PVector(-50 ,app.height/2);
 		}
-		//Comida c = new Comida(app);
-//		posObj = new PVector(c.getPosX(), c.getPosY());
-//		perseguir(posObj);
 		comidas = log.getComidas();
 	}
 
@@ -90,7 +87,6 @@ public class Tom extends Personaje {
 			log.eliminarComidaTom(c);
 			if(arco < 360) {
 				arco+=36;
-
 			}
 			//System.out.println("c lo comio tom");
 		} else {
@@ -99,8 +95,13 @@ public class Tom extends Personaje {
 	}
 	}
 	
-	
-
+	public void quitarVida() {
+		if(PApplet.dist(pos.x, pos.y, jerry.pos.x, jerry.pos.y) < 50) {
+//			float c= log.getJerry().getArco();
+//			c-=36;
+			System.out.println("si quita vida");
+		}
+	}
 
 	@Override
 	public void run() {
@@ -109,6 +110,7 @@ public class Tom extends Personaje {
 				actua();
 				if(log.getJerry().getArco() < arco) {
 					perseguir(log.getJerry().getPos());
+					quitarVida();
 				} else {
 					perseguirComida();
 				}
@@ -119,7 +121,8 @@ public class Tom extends Personaje {
 			}
 		}
 	}
-
+	
+	
 	@Override
 	public void matar() {
 		// TODO Auto-generated method stub
