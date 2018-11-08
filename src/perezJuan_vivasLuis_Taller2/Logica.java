@@ -108,7 +108,6 @@ public class Logica extends Thread {
 			}
 		}
 	}
-	
 	public void comido() {
 		for (int i = 0; i < comidas.size(); i++) {
 			Comida c = comidas.get(i);
@@ -116,19 +115,56 @@ public class Logica extends Thread {
 		if(PApplet.dist(jerry.pos.x, jerry.pos.y, c.getPosX(), c.getPosY()) < 50) {
 			if(c.getRan() == 0) {
 				//codigo de lo que hace
+				if(jerry.getArco() < 360) {
+					jerry.setArco(jerry.getArco()+36);
+				}
+				System.out.println("c lo comio");
+			}  else {
+				c.setComido(false);
+			}
+			
+			if (c.getRan() == 1) {
+				for (int j = 0; j < toms.size(); j++) {
+					Tom t= toms.get(i);
+					t.maxVel=1;
+				}
+			}
+			
+			if(c.getRan() == 2) {
+				jerry.maxVel=10;
+			}
+			
+			if(c.getRan() == 3) {	
+				if(jerry.getArco() > 0) {
+					jerry.setArco(jerry.getArco()-72);
+				}
 			}
 			c.setComido(true);
 			comidas.remove(c);
-			if(jerry.getArco() < 360) {
-				jerry.setArco(jerry.getArco()+36);
-			}
-			System.out.println("c lo comio");
-		} else {
-			c.setComido(false);
-		}
+	}
 	}
 	}
 	
+//	public void comido backUP() {
+//		for (int i = 0; i < comidas.size(); i++) {
+//			Comida c = comidas.get(i);
+//		
+//		if(PApplet.dist(jerry.pos.x, jerry.pos.y, c.getPosX(), c.getPosY()) < 50) {
+//			if(c.getRan() == 0) {
+//				//codigo de lo que hace
+//			}
+//			c.setComido(true);
+//			comidas.remove(c);
+//			if(jerry.getArco() < 360) {
+//				jerry.setArco(jerry.getArco()+36);
+//			}
+//			System.out.println("c lo comio");
+//		} else {
+//			c.setComido(false);
+//		}
+//	}
+//	}
+//	
 	public void time() {
 		int seg= (time-app.millis())/1000;
 		int min = seg/60;

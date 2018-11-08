@@ -16,8 +16,15 @@ public class Comida {
 		posX = (int) app.random(0, app.width);
 		posY = (int) app.random(0, app.height);
 		ran=(int) app.random(0,4);
-		app.loadImage("/ruta/"+ran+".png");
+		tipoImagen= app.loadImage(""+ran+".png");
 		comido  = false;
+	}
+	
+	public void pintar() {
+		app.noStroke();
+		app.fill(app.random(0, 255), app.random(0, 255), app.random(0, 255));
+		app.ellipse(posX, posY, 20, 20);
+		app.image(tipoImagen, posX, posY);
 	}
 	
 	public int getPosX() {
@@ -34,12 +41,6 @@ public class Comida {
 
 	public void setPosY(int posY) {
 		this.posY = posY;
-	}
-
-	public void pintar() {
-		app.noStroke();
-		app.fill(app.random(0, 255), app.random(0, 255), app.random(0, 255));
-		app.ellipse(posX, posY, 20, 20);
 	}
 
 	public boolean isComido() {

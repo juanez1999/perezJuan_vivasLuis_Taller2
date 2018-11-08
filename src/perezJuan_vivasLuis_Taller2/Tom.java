@@ -156,5 +156,7 @@ public class Tom extends Personaje {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 
 }
