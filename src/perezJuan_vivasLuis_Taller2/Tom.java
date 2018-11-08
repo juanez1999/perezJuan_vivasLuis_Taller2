@@ -16,16 +16,19 @@ public class Tom extends Personaje {
 	private ArrayList<Comida> comidas;
 	private float arco;
 	private int contadorVida;
+	private boolean convida;
 	
-	public Tom(Logica log, PApplet app) {
+	public Tom(Logica log, PApplet app, Jerry jerry) {
 		super(log, app);
 		tom = app.loadImage("tom.png");
+		this.jerry=jerry;
 		vel = new PVector(0,0);
 		acel= new PVector(0,0);
-		maxVel = 3;
+		maxVel = 4;
 		maxFue= 0.5f;
 		arco = 0;
 		contadorVida = 0;
+		convida=true;
 		vivo = true;
 		random = (int) app.random(3);
 		if(random == 1) {
@@ -96,11 +99,30 @@ public class Tom extends Personaje {
 	}
 	
 	public void quitarVida() {
-		if(PApplet.dist(pos.x, pos.y, jerry.pos.x, jerry.pos.y) < 50) {
-//			float c= log.getJerry().getArco();
-//			c-=36;
+		PVector copi = jerry.getPos().copy();
+		if(PApplet.dist(pos.x, pos.y, copi.x, copi.y) < 50 && jerry.getArco()>0) {
+			float c= jerry.getArco();
+			c-=36;
+			jerry.setArco(c);
+			PVector p = vel.copy();
+			p.mult(-50);
+			pos.add(p);
+////			pos.x-=10;
+//			vel.normalize();
+//			//acel.mult(-10);
+//			vel.mult(-500);
+//			//contVida();
 			System.out.println("si quita vida");
+			return;
 		}
+	}
+	
+	public void contVida() {
+		int m= app.millis();
+		while(m-app.millis()<1000) {
+			convida=false;
+		}
+		convida=true;
 	}
 
 	@Override

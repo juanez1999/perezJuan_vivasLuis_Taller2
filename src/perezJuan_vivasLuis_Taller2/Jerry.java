@@ -32,23 +32,11 @@ public class Jerry extends Personaje {
 	public void pintar() {
 		app.imageMode(app.CENTER);
 		app.fill(0);
-	
-//		app.rect(pos.x-40, pos.y-65, vida+10, 20);
-//		app.fill(0,255,0);
-//		app.rect(pos.x-35, pos.y-60, vida, 10);
 		app.image(jerry, pos.x, pos.y);
 		app.stroke(255);
-//		app.fill(255);
-//		app.textSize(30);
-//		app.text(contadorVida, pos.x, pos.y);
-		
 		app.noFill();
 		app.stroke(0,255,0);
-//		app.ellipse(pos.x, pos.y, 100, 100);
 		app.arc(pos.x, pos.y, 100, 100, app.radians(0), app.radians(arco));
-		
-	
-		
 	}
 
 	@Override

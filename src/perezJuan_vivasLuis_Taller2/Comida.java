@@ -6,7 +6,7 @@ import processing.core.PImage;
 public class Comida {
 	public int posX;
 	public int posY;
-	private int tipoComida;
+	private int tipoComida, ran;
 	private PApplet app;
 	public boolean comido;
 	private PImage tipoImagen;
@@ -15,6 +15,8 @@ public class Comida {
 		this.app=app;
 		posX = (int) app.random(0, app.width);
 		posY = (int) app.random(0, app.height);
+		ran=(int) app.random(0,4);
+		app.loadImage("/ruta/"+ran+".png");
 		comido  = false;
 	}
 	
@@ -46,6 +48,14 @@ public class Comida {
 
 	public void setComido(boolean comido) {
 		this.comido = comido;
+	}
+	
+	public int getRan() {
+		return ran;
+	}
+
+	public void setRan(int ran) {
+		this.ran = ran;
 	}
 
 	public int getTipoComida() {

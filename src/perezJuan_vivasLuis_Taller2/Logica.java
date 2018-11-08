@@ -69,7 +69,7 @@ public class Logica extends Thread {
 		contCreate++;
 		if (contCreate > 180) {
 			//System.out.println("se creo");
-			Tom t = new Tom(this, app);
+			Tom t = new Tom(this, app, jerry);
 			t.start();
 			toms.add(t);
 
@@ -85,9 +85,7 @@ public class Logica extends Thread {
 		contComida++;
 		if(contComida > 135) {
 			Comida c = new Comida(app);
-
 			comidas.add(c);
-			
 			contComida = 0;
 		}
 	}
@@ -116,6 +114,9 @@ public class Logica extends Thread {
 			Comida c = comidas.get(i);
 		
 		if(PApplet.dist(jerry.pos.x, jerry.pos.y, c.getPosX(), c.getPosY()) < 50) {
+			if(c.getRan() == 0) {
+				//codigo de lo que hace
+			}
 			c.setComido(true);
 			comidas.remove(c);
 			if(jerry.getArco() < 360) {
