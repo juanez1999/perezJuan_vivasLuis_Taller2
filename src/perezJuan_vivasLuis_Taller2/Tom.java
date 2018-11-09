@@ -17,6 +17,7 @@ public class Tom extends Personaje {
 	private float arco;
 	private int contadorVida;
 	private boolean convida;
+	private int m;
 	
 	public Tom(Logica log, PApplet app, Jerry jerry) {
 		super(log, app);
@@ -24,7 +25,7 @@ public class Tom extends Personaje {
 		this.jerry=jerry;
 		vel = new PVector(0,0);
 		acel= new PVector(0,0);
-		maxVel = 4;
+		maxVel = 3;
 		maxFue= 0.5f;
 		arco = 0;
 		contadorVida = 0;
@@ -39,6 +40,7 @@ public class Tom extends Personaje {
 			pos = new PVector(-50 ,app.height/2);
 		}
 		comidas = log.getComidas();
+		 m=0;
 	}
 
 	@Override
@@ -88,13 +90,43 @@ public class Tom extends Personaje {
 		if(PApplet.dist(pos.x, pos.y, c.getPosX(), c.getPosY()) < 50) {
 			c.setComido(true);
 			log.eliminarComidaTom(c);
-			if(arco < 360) {
-				arco+=36;
+			if(c.getRan() == 0) {
+				//codigo de lo que hace
+				if(arco < 360) {
+					arco+=36;
+					//jerry.setArco(jerry.getArco()+36);
+				}
+				System.out.println("c lo comio");
+			}  else {
+				c.setComido(false);
 			}
-			//System.out.println("c lo comio tom");
-		} else {
-			c.setComido(false);
-		}
+			
+			if (c.getRan() == 1) {
+//				for (int j = 0; j < toms.size(); j++) {
+//					Tom t= toms.get(j);
+					jerry.setMaxVel(1);
+				}
+			
+			if(c.getRan() == 2) {
+				maxVel=7;
+			}
+			
+
+			if(c.getRan() == 3) {	
+				if( arco > 0) {
+//					jerry.setArco(jerry.getArco()/2);
+						jerry.setArco(jerry.getArco()/2);
+					}
+				}
+			
+			if(c.getRan() == 4) {
+				log.t=app.millis();
+				log.recpintar=true;
+			}
+		
+			
+			
+	}
 	}
 	}
 	
@@ -136,6 +168,7 @@ public class Tom extends Personaje {
 				} else {
 					perseguirComida();
 				}
+				tiempoLento();
 				comido();
 			sleep(16);
 			} catch (Exception e) {
@@ -144,7 +177,27 @@ public class Tom extends Personaje {
 		}
 	}
 	
+	public void setMaxVel(float v) {
+		maxVel=v;
+		m=app.millis();
+	}
 	
+	public void tiempoLento() {	
+		if(m-app.millis()<-2000) {
+			maxVel=4;
+			m=0;
+//			System.out.println("si entro");
+		}
+	}
+	
+	public float getArco() {
+		return arco;
+	}
+
+	public void setArco(float arco) {
+		this.arco = arco;
+	}
+
 	@Override
 	public void matar() {
 		// TODO Auto-generated method stub

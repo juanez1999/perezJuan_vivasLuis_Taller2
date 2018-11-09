@@ -12,6 +12,7 @@ public class Jerry extends Personaje {
 	private Comida c;
 	private float arco;
 	private ArrayList<Comida> comidas;
+	private int s;
 
 	public Jerry(Logica log, PApplet app) {
 		super(log, app);
@@ -25,6 +26,7 @@ public class Jerry extends Personaje {
 		vida = 2;
 		arco = 0;
 		comidas = log.getComidas();
+		s=0;
 
 	}
 
@@ -69,10 +71,23 @@ public class Jerry extends Personaje {
 				actua();
 				PVector posM = new PVector(app.mouseX, app.mouseY);
 				perseguir(posM);
+				tiempoRapido();
 				sleep(16);
 			} catch (Exception e) {
 
 			}
+		}
+	}
+	
+	public void setMaxVel(float vel) {
+		maxVel=vel;
+		s=app.millis();
+	}
+	
+	public void tiempoRapido() {
+		if(s-app.millis()<-2000) {
+			maxVel=6;
+			s=0;
 		}
 	}
 
@@ -92,6 +107,5 @@ public class Jerry extends Personaje {
 	public void setArco(float arco) {
 		this.arco = arco;
 	}
-
 	
 }
