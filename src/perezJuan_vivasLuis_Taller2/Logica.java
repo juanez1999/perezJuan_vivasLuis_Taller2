@@ -23,6 +23,7 @@ public class Logica extends Thread {
 	private int time;
 	private int recX,recY,recCrecerx,recCrecery;
 	public boolean recpintar;
+	private int pantalla;
 	
 
 	public Logica(PApplet app) {

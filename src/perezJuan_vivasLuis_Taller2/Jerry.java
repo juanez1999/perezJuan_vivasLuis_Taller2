@@ -24,7 +24,7 @@ public class Jerry extends Personaje {
 		maxFue = 0.5f;
 		vivo = true;
 		vida = 2;
-		arco = 0;
+		arco = 36;
 		comidas = log.getComidas();
 		s=0;
 
@@ -41,11 +41,6 @@ public class Jerry extends Personaje {
 		app.arc(pos.x, pos.y, 100, 100, app.radians(0), app.radians(arco));
 	}
 
-	@Override
-	public void mover() {
-		// TODO Auto-generated method stub
-
-	}
 
 	public void actua() {
 		vel.add(acel);
@@ -90,6 +85,7 @@ public class Jerry extends Personaje {
 			s=0;
 		}
 	}
+
 
 	@Override
 	public void matar() {

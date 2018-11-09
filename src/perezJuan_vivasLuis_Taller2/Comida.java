@@ -11,33 +11,38 @@ public class Comida {
 	private PApplet app;
 	public boolean comido;
 	private PImage tipoImagen;
-	
+
 	public Comida(PApplet app) {
-		this.app=app;
+		this.app = app;
 		posX = (int) app.random(0, app.width);
 		posY = (int) app.random(0, app.height);
-		randon=app.random(0,1);
-		
-		if(randon<=0.5) {			
-			tipoImagen= app.loadImage(""+0+".png");
-			ran=0;
-		} else if (randon>0.5 && ran<=0.6){
-			tipoImagen= app.loadImage(""+1+".png");
-			ran=1;
-		} else if (randon>0.6 && ran<=0.7) {
-			tipoImagen= app.loadImage(""+2+".png");
-			ran=2;
-		} else if (randon>0.7 && ran<=0.8){
-			tipoImagen= app.loadImage(""+3+".png");
-			ran=3;
-		} else if (randon>0.8 && ran<=1) {
-			tipoImagen= app.loadImage(""+4+".png");
-			ran=4;
+		randon = app.random(0, 1);
+		System.out.println("entra al metodo");
+
+
+		if (randon <= 0.5 ) {
+			tipoImagen = app.loadImage("" + 0 + ".png");
+			ran = 0;
+			System.out.println("hi");
+		} else if (randon <= 0.6) {
+			tipoImagen = app.loadImage("" + 1 + ".png");
+			ran = 1;
+		} else if (randon <= 0.7) {
+			System.out.println("entra a la condicion");
+			tipoImagen = app.loadImage("" + 2 + ".png");
+			ran = 2;
+		} else if (randon <= 0.8) {
+			System.out.println("entra a la condicion 2");
+			tipoImagen = app.loadImage("" + 3 + ".png");
+			ran = 3;
+		}  else if (randon <= 1) {
+			tipoImagen = app.loadImage("" + 4 + ".png");
+			ran = 4;
 		}
-		comido  = false;
+		comido = false;
 		System.out.println(randon);
 	}
-	
+
 	public void pintar() {
 		app.noStroke();
 		app.fill(app.random(0, 255), app.random(0, 255), app.random(0, 255));
@@ -45,6 +50,8 @@ public class Comida {
 		app.image(tipoImagen, posX, posY);
 	}
 	
+
+
 	public int getPosX() {
 		return posX;
 	}
@@ -68,7 +75,7 @@ public class Comida {
 	public void setComido(boolean comido) {
 		this.comido = comido;
 	}
-	
+
 	public int getRan() {
 		return ran;
 	}
@@ -85,4 +92,3 @@ public class Comida {
 		this.tipoComida = tipoComida;
 	}
 }
-

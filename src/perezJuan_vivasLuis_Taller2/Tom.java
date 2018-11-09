@@ -139,11 +139,6 @@ public class Tom extends Personaje {
 			PVector p = vel.copy();
 			p.mult(-50);
 			pos.add(p);
-////			pos.x-=10;
-//			vel.normalize();
-//			//acel.mult(-10);
-//			vel.mult(-500);
-//			//contVida();
 			System.out.println("si quita vida");
 			return;
 		}
@@ -182,13 +177,21 @@ public class Tom extends Personaje {
 		m=app.millis();
 	}
 	
-	public void tiempoLento() {	
+	public void tiempoRapido() {
 		if(m-app.millis()<-2000) {
 			maxVel=4;
+			m=0;
+		}
+	}
+	
+	public void tiempoLento() {	
+		if(m-app.millis()<-2000) {
+			maxVel=3;
 			m=0;
 //			System.out.println("si entro");
 		}
 	}
+	
 	
 	public float getArco() {
 		return arco;
@@ -197,6 +200,10 @@ public class Tom extends Personaje {
 	public void setArco(float arco) {
 		this.arco = arco;
 	}
+	
+	public PVector getPos() {
+		return pos;
+	}
 
 	@Override
 	public void matar() {
@@ -204,12 +211,6 @@ public class Tom extends Personaje {
 		
 	}
 
-	@Override
-	public void mover() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 
 }

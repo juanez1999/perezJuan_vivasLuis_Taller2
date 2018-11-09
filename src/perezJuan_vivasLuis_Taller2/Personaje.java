@@ -20,7 +20,6 @@ public abstract class Personaje extends Thread {
 	}
 	
 	public abstract void pintar();
-	public abstract void mover();
 	public abstract void run();
 	public abstract void matar();
 	
