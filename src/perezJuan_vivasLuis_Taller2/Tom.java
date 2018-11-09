@@ -27,7 +27,7 @@ public class Tom extends Personaje {
 		acel= new PVector(0,0);
 		maxVel = 3;
 		maxFue= 0.5f;
-		arco = 0;
+		arco = 36;
 		contadorVida = 0;
 		convida=true;
 		vivo = true;

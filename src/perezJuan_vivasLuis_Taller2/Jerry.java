@@ -26,7 +26,7 @@ public class Jerry extends Personaje {
 		vida = 2;
 		arco = 36;
 		comidas = log.getComidas();
-		s=0;
+		s = 0;
 
 	}
 
@@ -37,10 +37,9 @@ public class Jerry extends Personaje {
 		app.image(jerry, pos.x, pos.y);
 		app.stroke(255);
 		app.noFill();
-		app.stroke(0,255,0);
+		app.stroke(0, 255, 0);
 		app.arc(pos.x, pos.y, 100, 100, app.radians(0), app.radians(arco));
 	}
-
 
 	public void actua() {
 		vel.add(acel);
@@ -62,6 +61,13 @@ public class Jerry extends Personaje {
 	public void run() {
 		while (vivo) {
 			try {
+				for (int i = 0; i < 10; i++) {
+
+					if (arco > 1 + (i * 36) && arco < 36 + (i * 36)) {
+						arco = 36 + (i * 36);
+					}
+				}
+
 				// System.out.println("si funciona");
 				actua();
 				PVector posM = new PVector(app.mouseX, app.mouseY);
@@ -73,25 +79,24 @@ public class Jerry extends Personaje {
 			}
 		}
 	}
-	
+
 	public void setMaxVel(float vel) {
-		maxVel=vel;
-		s=app.millis();
+		maxVel = vel;
+		s = app.millis();
 	}
-	
+
 	public void tiempoRapido() {
-		if(s-app.millis()<-2000) {
-			maxVel=6;
-			s=0;
+		if (s - app.millis() < -2000) {
+			maxVel = 6;
+			s = 0;
 		}
 	}
 
-
 	@Override
 	public void matar() {
-		
+
 	}
-	
+
 	public PVector getPos() {
 		return pos;
 	}
@@ -103,5 +108,5 @@ public class Jerry extends Personaje {
 	public void setArco(float arco) {
 		this.arco = arco;
 	}
-	
+
 }
