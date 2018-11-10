@@ -1,13 +1,14 @@
 package perezJuan_vivasLuis_Taller2;
-
-
 import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
 
+// Clase hija Tom quien extiende de la clase padre Personaje
 public class Tom extends Personaje {
+/* Variables que utilizamos para toda la clase en general y su funcionamiento, heredadas de la clase padre y otras creadas
+	especialmente para la clase */
 	
 	private PImage tom;
 	private int random;
@@ -20,6 +21,8 @@ public class Tom extends Personaje {
 	private int m;
 	
 	public Tom(Logica log, PApplet app, Jerry jerry) {
+	/* Inicializamos las variables, recibimos por parametros La logica para validar lo que tenemos en ella, y el Jerry, personaje del usuario
+	para poder hacer los metodos de validacion con el Jerry */
 		super(log, app);
 		tom = app.loadImage("tom.png");
 		this.jerry=jerry;
@@ -32,6 +35,22 @@ public class Tom extends Personaje {
 		convida=true;
 		vivo = true;
 		random = (int) app.random(3);
+		generarToms();
+		comidas = log.getComidas();
+		 m=0;
+	}
+//Metodo encargado de pintar la imagen de Tom y el arco que representa la vida
+	@Override
+	public void pintar() {
+		app.imageMode(app.CENTER);
+		app.image(tom, pos.x, pos.y);
+		app.arc(pos.x, pos.y, 100, 100, app.radians(0), app.radians(arco));
+	}
+	
+/*Metodo encargado de pintar las posiciones de Tom, para que se pinten desde diferentes lados, teniendo en cuenta la cantidad
+	que arroje el random*/
+	
+	public void generarToms() {
 		if(random == 1) {
 			pos = new PVector(1300 ,app.height/2+50);
 		} else if(random == 2) {
@@ -39,23 +58,18 @@ public class Tom extends Personaje {
 		} else {
 			pos = new PVector(-50 ,app.height/2);
 		}
-		comidas = log.getComidas();
-		 m=0;
 	}
-
-	@Override
-	public void pintar() {
-		app.imageMode(app.CENTER);
-		app.image(tom, pos.x, pos.y);
-		app.arc(pos.x, pos.y, 100, 100, app.radians(0), app.radians(arco));
-	}
+/*Metodo encargado de hacer las operaciones con los vectores que se utilizan en cada Tom, estas operaciones abarcan agregar
+	y limitar la velocidad a la cual se pueden mover, y su aceleracion*/
 	public void actua() {
 		vel.add(acel);
 		vel.limit(maxVel);
 		pos.add(vel);
 		acel.mult(0);
 	}
-	
+/* Metodo encargado de hacer la validacion para perseguir al usuario, el objetivo que recibe por parametro es la posicion del 
+ * usuario, cuando encuentra la posicion del usuario, se le agregar la maxima velocidad contra la cual puede ir Tom hacia el usuario	
+ */
 	public void perseguir(PVector objetivo) {
 		PVector encontrado = PVector.sub(objetivo,pos);
 		encontrado.normalize();
@@ -64,7 +78,9 @@ public class Tom extends Personaje {
 		dirigir.limit(maxFue);
 		acel.add(dirigir);
 	}
-	
+/* Metodo encargador de perseguir la comida, cuando valida la comida que esta mas cercana a el toma ese nuevo vector dirigido hacia ella
+ * para moverse hacia la comida*/	
+ 
 	public void perseguirComida() {
 		Comida c = null;
 		if(comidas.size() > 0) {
@@ -82,7 +98,9 @@ public class Tom extends Personaje {
 		}
 	}
 
-
+ /* Metodo encargado de validar cuando se come un alimento y encargado de validar dependiendo de que alimento se comio
+  * hacer la modificacion que hace el alimento ya sea al usuario Jerry o a si mismo*/
+ 
 	public void comido() {
 		for (int i = 0; i < comidas.size(); i++) {
 			Comida c = comidas.get(i);
@@ -114,7 +132,6 @@ public class Tom extends Personaje {
 
 			if(c.getRan() == 3) {	
 				if( arco > 0) {
-//					jerry.setArco(jerry.getArco()/2);
 						jerry.setArco(jerry.getArco()/2);
 					}
 				}
@@ -129,7 +146,8 @@ public class Tom extends Personaje {
 	}
 	}
 	}
-	
+/*Metodo para quitar vida contra Jerry siempre y cuando Tom tenga mas vida que el, cuando le quite una vida el vector
+ * se multiplica para que se aleje y no le siga quitando vida */	
 	public void quitarVida() {
 		PVector copi = jerry.getPos().copy();
 		if(PApplet.dist(pos.x, pos.y, copi.x, copi.y) < 50 && jerry.getArco()>0) {
@@ -143,7 +161,7 @@ public class Tom extends Personaje {
 			return;
 		}
 	}
-	
+// Metodo encargado	de saber en que momento la vida se puede restar//
 	public void contVida() {
 		int m= app.millis();
 		while(m-app.millis()<1000) {
@@ -171,19 +189,19 @@ public class Tom extends Personaje {
 			}
 		}
 	}
-	
+//Metodo encargado de cambiar la maxima velocidad cuando se come el alimento	
 	public void setMaxVel(float v) {
 		maxVel=v;
 		m=app.millis();
 	}
-	
+//Metodo encargado de limitar el tiempo que se esta rapido	
 	public void tiempoRapido() {
-		if(m-app.millis()<-2000) {
+		if(m-app.millis()<-3000) {
 			maxVel=4;
 			m=0;
 		}
 	}
-	
+// Metodo encargado de limitar el tiempo que se esta lento	
 	public void tiempoLento() {	
 		if(m-app.millis()<-2000) {
 			maxVel=3;
@@ -205,11 +223,6 @@ public class Tom extends Personaje {
 		return pos;
 	}
 
-	@Override
-	public void matar() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	
 

@@ -3,6 +3,7 @@ package perezJuan_vivasLuis_Taller2;
 import processing.core.PApplet;
 import processing.core.PVector;
 
+//Clase padre encargada de dar los metodos que necesitará cada clase hija
 public abstract class Personaje extends Thread {
 	
 	protected PVector pos;
@@ -21,7 +22,6 @@ public abstract class Personaje extends Thread {
 	
 	public abstract void pintar();
 	public abstract void run();
-	public abstract void matar();
 	
 	
 }

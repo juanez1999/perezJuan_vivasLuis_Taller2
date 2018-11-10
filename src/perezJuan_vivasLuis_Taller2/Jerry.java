@@ -29,7 +29,7 @@ public class Jerry extends Personaje {
 		s = 0;
 
 	}
-
+	//Metodo encargado de pintar la imagen de Tom y el arco que representa la vida
 	@Override
 	public void pintar() {
 		app.imageMode(app.CENTER);
@@ -41,13 +41,18 @@ public class Jerry extends Personaje {
 		app.arc(pos.x, pos.y, 100, 100, app.radians(0), app.radians(arco));
 	}
 
+/*Metodo encargado de hacer las operaciones con los vectores que se utiliza en Jerry, estas operaciones abarcan agregar
+y limitar la velocidad a la cual se pueden mover, y su aceleracion*/
 	public void actua() {
 		vel.add(acel);
 		vel.limit(maxVel);
 		pos.add(vel);
 		acel.mult(0);
 	}
-
+/* Metodo encargado de hacer la validacion para perseguir al mouse al puntero, el objetivo que recibe por parametro es la posicion del 
+ * puntero del mouse, cuando encuentra la posicion del mouse, se le agregar la maxima velocidad contra la cual puede ir jerry hacia el
+ *  mouse	
+ */
 	public void perseguir(PVector objetivo) {
 		PVector encontrado = PVector.sub(objetivo, pos);
 		encontrado.normalize();
@@ -57,10 +62,13 @@ public class Jerry extends Personaje {
 		acel.add(dirigir);
 	}
 
+//Metodo encargado de hacer todo el Hilo, todo lo que necesita ejecutarse, es decir los metodos definidos aca en la clase
 	@Override
 	public void run() {
 		while (vivo) {
 			try {
+			/*For encargado de llevar el arco de la vida al maximo multiplo de 36 cercano para que al restarle la vida no se 
+				represente de manera incorrecta*/
 				for (int i = 0; i < 10; i++) {
 
 					if (arco > 1 + (i * 36) && arco < 36 + (i * 36)) {
@@ -79,12 +87,7 @@ public class Jerry extends Personaje {
 			}
 		}
 	}
-
-	public void setMaxVel(float vel) {
-		maxVel = vel;
-		s = app.millis();
-	}
-
+//Metodo encargado de limitar el tiempo que se esta rapido
 	public void tiempoRapido() {
 		if (s - app.millis() < -2000) {
 			maxVel = 6;
@@ -92,10 +95,12 @@ public class Jerry extends Personaje {
 		}
 	}
 
-	@Override
-	public void matar() {
-
+	public void setMaxVel(float vel) {
+		maxVel = vel;
+		s = app.millis();
 	}
+
+	
 
 	public PVector getPos() {
 		return pos;

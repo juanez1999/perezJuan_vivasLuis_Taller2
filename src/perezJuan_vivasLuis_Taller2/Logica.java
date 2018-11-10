@@ -6,7 +6,10 @@ import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
 
+/* Clase logica que extiende de Thread para utilizar los metodos que llevan Thread, y convertir la clase en un Hilo propio, en el cual
+se ejecuta la aplicacion en su mayoria*/
 public class Logica extends Thread {
+//Variables utilizadas para la clase, desde PImages hasta los ArrayList de la clase Comida y Tom
 	private PApplet app;
 	private PImage fondo;
 	private PImage ganaste;
@@ -29,7 +32,8 @@ public class Logica extends Thread {
 	private int recX, recY, recCrecerx, recCrecery;
 	public boolean recpintar;
 	private int pantalla;
-
+	
+// Constructor donde incializo las variable que necesitamos para los metodos que utilizamos en la clase
 	public Logica(PApplet app) {
 		this.app = app;
 
@@ -49,7 +53,6 @@ public class Logica extends Thread {
 		vivo = true;
 		posX = (int) app.random(0, app.width);
 		posY = (int) app.random(0, app.height);
-		start();
 		time = app.millis() + 60000;
 		recpintar = false;
 		recX = 0;
@@ -61,9 +64,13 @@ public class Logica extends Thread {
 		inicio = app.loadImage("inicio.png");
 		instrucciones = app.loadImage("instrucciones.png");
 		perdiste = app.loadImage("perdiste.png");
+		
+//Inicializo el hilo de la clase 
+		start();
+
 
 	}
-
+//Metodo pintar donde se ve el switch que representa lo que se pinta en cada pantalla
 	public void pintar() {
 		switch (pantalla) {
 		case 0:
@@ -91,6 +98,14 @@ public class Logica extends Thread {
 			}
 			pintarRect();
 			break;
+		case 3:
+			app.imageMode(app.CORNER);
+			app.image(perdiste, 0, 0);
+			break;
+		case 4:
+			app.imageMode(app.CORNER);
+			app.image(ganaste, 0, 0);
+			break;
 		}
 
 	}
@@ -106,11 +121,11 @@ public class Logica extends Thread {
 			contCreate = 0;
 		}
 	}
-
+//Cuando tom se come la comida este metodo se escarga de eliminarla
 	public void eliminarComidaTom(Comida c) {
 		comidas.remove(c);
 	}
-
+//Metodo encargado de crear la comida cada 3 segundos
 	public void crearComida() {
 		contComida++;
 		if (contComida > 135) {
@@ -123,7 +138,8 @@ public class Logica extends Thread {
 	public Jerry getJerry() {
 		return jerry;
 	}
-
+	
+//Metodo encargado de hacer todo el Hilo, todo lo que necesita ejecutarse, es decir los metodos definidos aca en la clase
 	@Override
 	public void run() {
 		while (vivo) {
@@ -137,6 +153,9 @@ public class Logica extends Thread {
 
 					quitarVidaTom();
 				}
+				if(jerry.getArco() == 0) {
+					pantalla = 3;
+				}
 			}
 			try {
 				sleep(16);
@@ -145,7 +164,7 @@ public class Logica extends Thread {
 			}
 		}
 	}
-
+//Metodo encargado de validar cuando Jerry es mayor nivel que tom y puede quitarle vida, al llegar a 0 la vida de tom este es eliminado
 	public void quitarVidaTom() {
 		for (int i = 0; i < toms.size(); i++) {
 			Tom t = toms.get(i);
@@ -170,6 +189,9 @@ public class Logica extends Thread {
 		}
 	}
 
+ /* Metodo encargado de validar cuando se come un alimento y encargado de validar dependiendo de que alimento se comio
+  *  * hacer la modificacion que hace el alimento ya sea al usuario Jerry o a Tom*/
+	 
 	public void comido() {
 		for (int i = 0; i < comidas.size(); i++) {
 			Comida c = comidas.get(i);
@@ -215,9 +237,9 @@ public class Logica extends Thread {
 			}
 		}
 	}
-
+//Metodo quien se encarga de pintar el rectangulo que dificulta la vision del usuario durante 3 segundos
 	public void pintarRect() {
-		if (t - app.millis() < -4000) {
+		if (t - app.millis() < -3000) {
 			recpintar = false;
 			t = 0;
 		}
@@ -236,7 +258,7 @@ public class Logica extends Thread {
 			}
 		}
 	}
-
+//Metodo encargado de pintar el tiempo maximo de juego que va decreciendo con el paso de los segundos
 	public void time() {
 		int seg = (time - app.millis()) / 1000;
 		int min = seg / 60;
@@ -245,7 +267,7 @@ public class Logica extends Thread {
 		app.textSize(50);
 		app.text(min + ":" + seg, app.width / 2 + 460, 100);
 		if(seg == 0) {
-			pantalla = 3;
+			pantalla = 4;
 		}
 	}
 
@@ -264,7 +286,7 @@ public class Logica extends Thread {
 	public void setRecpintar(boolean recpintar) {
 		this.recpintar = recpintar;
 	}
-
+//Metodo encargado de cambiar la variable pantalla al dar click para pasar entre las imagenes de pantallas de juego
 	public void click() {
 		switch (pantalla) {
 		case 0:
